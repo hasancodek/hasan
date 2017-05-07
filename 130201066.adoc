@@ -28,15 +28,18 @@ p = pointfeature(101,[-2;2],[0.01 0.002; 0.002 0.03]);
 G = addentity(G,p)//Noktayı haritaya eklemek için. Noktalı virgülü G' hemen görmek için eklemedik
 -----
 5.Satır özelliğini oluşturma ve ekleme metodudur. Bir tanımlayıcı, bir α, r konumu ve ilişkili kovaryans matrisi belirtiriz.
+[source, Matlab]
 -----
 l = arlinefeature(201,[-pi/3;2],0.001*eye(2));
 G = addentity(G,l)
 -----
 6.Haritayı çizme metodudur.Haritanın adını,eklenecek nesne adlarını,renk değişkenini alır.
+[source, Matlab]
 -----
 draw(G,1,1,0,'b');
 -----
 7.Haritanın aralığını belirlemek için.
+[source, Matlab]
 -----
  axis([-3 3 -3 3]);//Haritanın pencere eksenlerini ± 3 m ile sınırlamayı seçeriz
 -----
@@ -44,13 +47,27 @@ draw(G,1,1,0,'b');
 
 .Not = Mevcut sürüm, önceden hazırlanmış beş pre-cooked deneyiyle birlikte geliyor. Bunlar: atrium, bakery1, bakery3, sjursflat with beacons, ve sjursflat with lines. 
 1.Ham verileri çizmek için kullanılan komutdur, ve bir ad dizesi, bir başlangıç basamağı ve birkaç adım argümanı alır.
+[source, Matlab]
 -----
 drawrawdata('sjursflatbeaconsetup',1,280);
 -----
 2.Robot verilerinden bir harita oluşturma ve döngüyü kapatmak için kullanılır.
+[source, Matlab]
 -----
 G = slam('sjursflatbeaconsetup',1,280,3);
 -----
+[source, Matlab]
 -----
  drawrawdata('atriumsetup',1,310);
+ G = slam('atriumsetup',1,310,3);
+
+drawrawdata('bakery1setup',1,160);
+G = slam('bakery1setup',1,160,3);
+
+drawrawdata('bakery3setup',1,72);
+G = slam('bakery3setup',1,72,3);
+
+drawrawdata('sjursflatlinesetup',1,280);
+G = slam('sjursflatlinesetup',1,280,3);
+
 -----
