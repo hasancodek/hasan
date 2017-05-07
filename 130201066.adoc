@@ -40,3 +40,4 @@ draw(G,1,1,0,'b');
 -----
  axis([-3 3 -3 3]);//Haritanın pencere eksenlerini ± 3 m ile sınırlamayı seçeriz
 -----
+=== 2)Dahili Örnekleri Kullanma Komutu
