@@ -47,3 +47,10 @@ draw(G,1,1,0,'b');
 -----
 drawrawdata('sjursflatbeaconsetup',1,280);
 -----
+2.Robot verilerinden bir harita oluşturma ve döngüyü kapatmak için kullanılır.
+-----
+G = slam('sjursflatbeaconsetup',1,280,3);
+-----
+-----
+ drawrawdata('atriumsetup',1,310);
+-----
