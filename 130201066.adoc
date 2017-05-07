@@ -43,7 +43,7 @@ draw(G,1,1,0,'b');
 -----
  axis([-3 3 -3 3]);//Haritanın pencere eksenlerini ± 3 m ile sınırlamayı seçeriz
 -----
-=== 2)Dahili Örnekleri Kullanma Komutu
+=== 2)Dahili Örnekleri Kullanma 
 
 .Not = Mevcut sürüm, önceden hazırlanmış beş pre-cooked deneyiyle birlikte geliyor. Bunlar: atrium, bakery1, bakery3, sjursflat with beacons, ve sjursflat with lines. 
 1.Ham verileri çizmek için kullanılan komutdur, ve bir ad dizesi, bir başlangıç basamağı ve birkaç adım argümanı alır.
@@ -73,6 +73,7 @@ G = slam('sjursflatlinesetup',1,280,3);
 -----
 
 === 3)Robot Tanımlama
+
 1.Kurulum dosyasında params adlı bir yapı ilan edilir. Parametrelerin bazı alanları zorunludur, tanımlanmaları gerekir. Diğer alanlar, bırakıldığında varsayılan değerleri alan isteğe bağlıdır. Ayrıca, params rasgele sayıda kullanıcı tarafından belirtilen alanları içerebilir.
 
 2.Params.robot.name alanı, robotun adını tanımlayan ve tek tırnak içinde verilen bir dizedir.
@@ -102,4 +103,22 @@ params.robot.rr = 0.25; % right wheel radius in [m]
 -----
 params.robot.x = zeros(3,1);
 params.robot.C = 0.0001*eye(3);
+-----
+=== 4)Sensör Tanımlama
+
+1.Params.sensori.name alanı, sensör adını ve tam sayı i ile sensör numarasını tanımlayan ve tek tırnak işareti içinde belirtilen komuttur.
+[source, Matlab]
+-----
+params.sensor1.name = 'Sick LMS200 indoor';
+n params.sensor2.name = 'Leuze P4';
+-----
+2.Params.sensori.datafile alanı, veri dosyasının adıyla tek tırnak içinde bir dizedir.
+[source, Matlab]
+-----
+params.sensor2.datafile = 'sjursflat.scn';
+-----
+3.Params.sensori.label alanı, tek bir tırnak içinde, veri dosyasında sensör i'nin bilgisinin işaretlendiği etiketi tanımlayan bir dizedir.
+[source, Matlab]
+-----
+params.sensor2.label = 'S';
 -----
