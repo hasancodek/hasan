@@ -41,3 +41,9 @@ draw(G,1,1,0,'b');
  axis([-3 3 -3 3]);//Haritanın pencere eksenlerini ± 3 m ile sınırlamayı seçeriz
 -----
 === 2)Dahili Örnekleri Kullanma Komutu
+
+.Not = Mevcut sürüm, önceden hazırlanmış beş pre-cooked deneyiyle birlikte geliyor. Bunlar: atrium, bakery1, bakery3, sjursflat with beacons, ve sjursflat with lines. 
+1.Ham verileri çizmek için kullanılan komutdur, ve bir ad dizesi, bir başlangıç basamağı ve birkaç adım argümanı alır.
+-----
+drawrawdata('sjursflatbeaconsetup',1,280);
+-----
