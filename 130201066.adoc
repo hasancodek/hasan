@@ -21,9 +21,22 @@ r = robotdd('Piggy',[1;2;pi/6],0.001*eye(3),0.2,0.2,0.5,4,0);)
 -----
 G = addentity(G,r);
 -----
-4.Nokta özellğini oluşturma methodudur. Yapıcı yöntemi bir tanımlayıcı, bir x, y konumu ve bir 2 x 2 konum kovaryans matrisi alır.
+4.Nokta özellğini oluşturma metodudur. Yapıcı yöntemi bir tanımlayıcı, bir x, y konumu ve bir 2 x 2 konum kovaryans matrisi alır.
 [source, Matlab]
 -----
 p = pointfeature(101,[-2;2],[0.01 0.002; 0.002 0.03]);
-G = addentity(G,p);//Noktayı haritaya eklemek için.
+G = addentity(G,p)//Noktayı haritaya eklemek için. Noktalı virgülü G' hemen görmek için eklemedik
+-----
+5.Satır özelliğini oluşturma ve ekleme metodudur. Bir tanımlayıcı, bir α, r konumu ve ilişkili kovaryans matrisi belirtiriz.
+-----
+l = arlinefeature(201,[-pi/3;2],0.001*eye(2));
+G = addentity(G,l)
+-----
+6.Haritayı çizme metodudur.Haritanın adını,eklenecek nesne adlarını,renk değişkenini alır.
+-----
+draw(G,1,1,0,'b');
+-----
+7.Haritanın aralığını belirlemek için.
+-----
+ axis([-3 3 -3 3]);//Haritanın pencere eksenlerini ± 3 m ile sınırlamayı seçeriz
 -----
