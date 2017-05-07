@@ -71,3 +71,35 @@ drawrawdata('sjursflatlinesetup',1,280);
 G = slam('sjursflatlinesetup',1,280,3);
 
 -----
+
+=== 3)Robot Tanımlama
+1.Kurulum dosyasında params adlı bir yapı ilan edilir. Parametrelerin bazı alanları zorunludur, tanımlanmaları gerekir. Diğer alanlar, bırakıldığında varsayılan değerleri alan isteğe bağlıdır. Ayrıca, params rasgele sayıda kullanıcı tarafından belirtilen alanları içerebilir.
+
+2.Params.robot.name alanı, robotun adını tanımlayan ve tek tırnak içinde verilen bir dizedir.
+[source, Matlab]
+-----
+params.robot.name = 'Pluto';
+-----
+3.Params.robot.class alanı, araç kinematiği kodlayan robot sınıfının adını tanımlayan ve tek tırnak içinde verilen bir dizedir. Mevcut araç kutusu sürümünde sadece robotdd diferansiyel sürücü robot sınıfı var.
+[source, Matlab]
+-----
+params.robot.class = 'robotdd';
+-----
+4.Params.robot.formtype alanı, drawrobot'un ilgili argümanına göre sıfır ile beş arasında bir tamsayıdır. Sayı, robotu gösteren tüm şekillerde çizilecek bir şekli ifade eder.
+[source, Matlab]
+-----
+params.robot.formtype = 5;
+-----
+5.Params.robot.b, params.robot.rl ve params.robot.rr alanları tekerlek tabanı, solun yarıçapı ve sağ tekerleğin yarıçapını belirtir hepsi [m] cinsindendir.
+[source, Matlab]
+-----
+params.robot.b = 0.60; % robot wheelbase in [m]
+params.robot.rl = 0.25; % left wheel radius in [m]
+params.robot.rr = 0.25; % right wheel radius in [m]
+-----
+6.Params.robot.x ve params.robot.C alanları sırasıyla 3 × 1 vektör ve 3 × 3 matristir. Bunlar, robotun bir deneyde başlayacağı başlangıç pozunu ve poz kovaryansını belirtir.
+[source, Matlab]
+-----
+params.robot.x = zeros(3,1);
+params.robot.C = 0.0001*eye(3);
+-----
