@@ -19,4 +19,15 @@ G = map('global map',0);
 -----
 r = robotdd('Piggy',[1;2;pi/6],0.001*eye(3),0.2,0.2,0.5,4,0);)
 -----
-3.
+3.Haritaya ekleme metodudur.Haritanın adı ve eklenecek nesne değişkeninin adını alır.
+[source, Matlab]
+-----
+G = addentity(G,r);
+-----
+
+4. Nokta özellğini oluşturma methodudur. Yapıcı yöntemi bir tanımlayıcı, bir x, y konumu ve bir 2 x 2 konum kovaryans matrisi alır.
+[source, Matlab]
+-----
+p = pointfeature(101,[-2;2],[0.01 0.002; 0.002 0.03]);
+G = addentity(G,p);//Noktayı haritaya eklemek için.
+-----
