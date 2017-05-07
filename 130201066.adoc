@@ -2,5 +2,7 @@
 
 == Use Quide Matlab Komutları 
 
+.Bir robot, bir nokta özelliği ve bir α, r-line özelliğiyle bir harita oluşturup çizme komutları.
 1)Bir robot, bir nokta özelliği ve bir α, r-line özelliğiyle bir harita oluşturup çizme komutları.
+
 
