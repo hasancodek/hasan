@@ -6,4 +6,17 @@
 
 === 1)Bir robot, bir nokta özelliği ve bir α, r-line özelliğiyle bir harita oluşturup çizme komutları.
 
+1.Harita nesnesinin yapıcı metodudur.   Yöntem bir ad ve bir zaman damgası alır.
 
+[source, Matlab]
+-----
+G = map('global map',0); 
+-----
+
+2.Robot yapım yöntemidir ve bir ad, tanımlayıcı, x, y, θ-pozu, 3 x 3 poz kovaryans matrisi, sol ve sağ tekerlek yarığı, tekerlek tabanı (hepsi metre cinsinden) ve bir zaman damgası alır.(robotdd:diferansiyel drive robot(diferansiyel tahrik robotu).
+
+[source, Matlab]
+-----
+r = robotdd('Piggy',[1;2;pi/6],0.001*eye(3),0.2,0.2,0.5,4,0);)
+-----
+3.
