@@ -157,4 +157,9 @@ params.sensor2.stdrho = 0.02; [m]
 -----
 10.params.sensori.kl ve params.sensori.kr, diferansiyel sürücü robot sınıfının durum tahmini yönteminde gereklidir. Bunlar, sistematik olmayan odometri hatalarının büyüme faktörlerini belirten float sayılarıdır( 1 / [m]). Daha fazla bilgi için help robotdd / predict yazın.
 
-=== 5)Ana Sensörü Tanımlama
+11.Ana sensörü tanımlamak için  params.mastersensid parametresi gereklidir. Kurulum dosyasında tanımlanan sensörlerden birinin tanımlayıcı değeri i edinmelidir.
+[source, Matlab]
+-----
+params.mastersensid = 2;
+-----
+=== 5)Algoritma ve Kullanıcı Parametrelerini Belirleme
