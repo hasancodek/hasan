@@ -11,7 +11,7 @@
 -----
 G = map('global map',0); 
 -----
-2.Robot yapım yöntemidir ve bir ad, tanımlayıcı, x, y, θ-pozu, 3 x 3 poz kovaryans matrisi, sol ve sağ tekerlek yarığı, tekerlek tabanı (hepsi metre cinsinden) ve bir zaman damgası alır.(robotdd:diferansiyel drive robot(diferansiyel tahrik robotu).
+2.Robot yapım yöntemidir ve bir ad, tanımlayıcı, x, y, θ-pozu, 3 x 3 poz kovaryans matrisi, sol ve sağ tekerlek yarığı, tekerlek tabanı (hepsi metre cinsinden) ve bir zaman damgası alır.(robotdd:diferansiyel drive robot(diferansiyel sürüş robotu).
 [source, Matlab]
 -----
 r = robotdd('Piggy',[1;2;pi/6],0.001*eye(3),0.2,0.2,0.5,4,0);)
@@ -146,10 +146,13 @@ params.sensor3.extractionfnc = 'extractbeacons';
 -----
 params.sensor3.xs = [0.2945; 0; 0.0];
 -----
-9.params.sensori.rs , params.sensori.anglereso ,params.sensori.stdrho, aralık sensörünün maksimum algılama yarıçapını [m] cinsinden, radardaki açısal çözünürlüğü ve radyal olarak sabit bir standart sapmayı belirten float sayılarıdır . Bu parametreler, drawrawdata veya extractlines, çizgi çıkarma yöntemi bu araç kutusu sürümünde bulunan gibi çeşitli yerlerde gereklidir. 
+9.params.sensori.rs , params.sensori.anglereso ,params.sensori.stdrho, aralık sensörünün maksimum algılama yarıçapını [m] cinsinden, radardaki açısal çözünürlüğü ve radyal olarak sabit bir standart sapmayı belirten float sayılarıdır . Bu parametreler, drawrawdata veya extractlines, çizgi çıkarma yöntemi bu araç kutusu sürümünde çeşitli yerlerde gereklidir. 
 [source, Matlab]
 -----
 params.sensor2.rs = 8.0; [m]
 params.sensor2.anglereso = 0.5*pi/180;  [rad]
 params.sensor2.stdrho = 0.02; [m]
 -----
+10.params.sensori.kl ve params.sensori.kr, diferansiyel sürücü robot sınıfının durum tahmini yönteminde gereklidir. Bunlar, sistematik olmayan odometri hatalarının büyüme faktörlerini belirten float sayılarıdır( 1 / [m]). Daha fazla bilgi için help robotdd / predict yazın.
+
+=== 5)Ana Sensörü Tanımlama
