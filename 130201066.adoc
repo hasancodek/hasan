@@ -122,3 +122,34 @@ params.sensor2.datafile = 'sjursflat.scn';
 -----
 params.sensor2.label = 'S';
 -----
+4."arams.sensori.tdownsample ve params.sensori.sdownsample alanları, zamansal ve mekansal aşağı örnekleme faktörlerini belirten pozitif tamsayılardır. Alanlar ve örnekler isteğe bağlıdır. Tanımlanmadıklarında, varsayılan değer olan 1'i alacaklardır .
+[source, Matlab]
+-----
+params.sensor2.tdownsample = 1;
+params.sensor2.sdownsample = 20;
+-----
+5.Params.sensori.indexstr alanı, tek tırnak içinde kullanılır ve amacı veri dosyasındaki her satırın nasıl yorumlanmasını sağlamaktır.  Bu, geçerli matlab dizini ifadeleri ile elemanlar olarak virgülle ayrılmış bir listedir.
+
+[source, Matlab]
+-----
+params.sensor2.indexstr = '1,2,3,4:2:end,5:2:end';
+-----
+6.params.sensori.isabsolute boolen bir değişkendir. Bu parametre sensör bilgilerinin dosyadan nasıl okunacağını belirler. Parametre, mutlak ve nispi kodlayıcı ölçümlerini okumak için sunulmuştur. Her bir giriş (her hat) kendi başına bir ölçüm olduğunda, bayrak 0'a ayarlanacaktır.
+7.Params.sensori.extractionfnc alanı tek tırnak içinde, bir çıkarma yöntemiyle m-dosyasının adını tanımlayan bir dizedir. Bu çıkarma yöntemi, k+1 sensör verisini göz önüne ladığımızda z(k+1) ve R(k+1) gözlemlerini üretmeyi sağlar.
+[source, Matlab]
+-----
+params.sensor3.extractionfnc = 'extractbeacons';
+-----
+8.Params.sensori.xs alanı, deterministik robotto-sensör dönüşümü xS'yi tanımlayan 3 x 1 vektördür. Sensör i'nin verileri, sensör i'ye eklenen bir referans çerçevesi olan S'de temsil edildiği varsayılır (Şekil 1.18'e bakınız).
+
+[source, Matlab]
+-----
+params.sensor3.xs = [0.2945; 0; 0.0];
+-----
+9. params.sensori.rs , params.sensori.anglereso ,params.sensori.stdrho, aralık sensörünün maksimum algılama yarıçapını [m] cinsinden, radardaki açısal çözünürlüğü ve radyal olarak sabit bir standart sapmayı belirten float sayılarıdır . Bu parametreler, drawrawdata veya extractlines, çizgi çıkarma yöntemi bu araç kutusu sürümünde bulunan gibi çeşitli yerlerde gereklidir. 
+[source, Matlab]
+-----
+params.sensor2.rs = 8.0; [m]
+params.sensor2.anglereso = 0.5*pi/180;  [rad]
+params.sensor2.stdrho = 0.02; [m]
+-----
