@@ -296,4 +296,45 @@ drawtransform([1 0],[1.2 1.5],'\','x2',[.7 .6 .0]);
 19.ar = setangletorange (a, min) a açısını [min .. min + 2π ] aralığına yerleştirir. 
 
 === 2) M-dosyalarını içe aktarma(import folder)
+1.closefiles(files), dosyaların yapısındaki tüm açık dosyaları kapatır.
+2.[Files, params] = openfiles (dosyaadı, başlangıç sayfası), kurulum dosyasını, veri dosyalarını ve bir yerelleştirme denemesi olması durumunda deneme dosyasının kurulum dosyasında belirtilen şekilde harita dosyasını açar. Dosyaları ve params yapılarını döndürür. Tüm dosya konumu göstergelerini deneyin başlangıç aşamasında başlayacağı şekilde uygun konumlara getirir.
+[source, Matlab]
+-----
+files.allopen
+files.mapfid
+files.mastersensid
+files.sensor(i).fid
+files.sensor(i).params
+-----
+3.S = readoneline (fid, indexexpr, label), fid tarafından başvurulan ve indexexpr dosyasındaki dizin ifadelerini kullanarak etiket dizesi etiketi ile başlayan ve yapıdaki verileri döndüren bir algılayıcı veri dosyasının bir satırını okur. S, indexexpr içindeki karşılık gelen bir ifade tarafından başvurulan alanları içerir. Dosya sonu ile karşılaşıldığında, s=-1 olur.
+
+4.[Eof, sensors] = readonestep (files) dosyadaki dosya tanımlayıcıları tarafından başvurulan sensör veri dosyalarından okur ve yapı dizilerindeki verileri döndürür. Sensörlerin uzunluğu, deneyin kurulum dosyasında tanımlanan sensörlerin sayısıyla verilir. Dosyaların en az birindeki bir dosya sonu ile karşılaşıldığında eof 1 olur.
+[source, Matlab]
+-----
+params.sensor1.tdownsample = 3
+params.sensor1.sdownsample = 1
+params.sensor1.indexstr = '1,2,4,3'
+params.sensor2.tdownsample = 1
+params.sensor2.sdownsample = 2
+params.sensor2.indexstr = '1,2,3,4:2:end,5:2:end'
+params.mastersensid = 2
+sensors(1).params
+sensors(1).steps(i).time = timestamp
+
+sensors(1).steps(i).data1 = right
+sensors(1).steps(i).data2 = left
+sensors(2).params
+sensors(2).steps.time = timestamp
+sensors(2).steps.data1 = n
+sensors(2).steps.data2 = [x1 x3 ... xn]
+sensors(2).steps.data3 = [y1 y3 ... yn]
+-----
+
+5.expr = segmentstr(str,separator) Expr, alt dizelerden oluşan bir hücre dizisidir.
+[source, Matlab]
+-----
+segmentstr('1:2:3:end:4:',':')
+segmentstr(' p.j. harvey and john parish ',' ')
+-----
+=== 3)Beacon Extraction m-files(featureextr/beaconextr folder)
 1.
