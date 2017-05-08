@@ -158,7 +158,7 @@ params.sensor2.stdrho = 0.02; [m]
 -----
 10.params.sensori.kl ve params.sensori.kr, diferansiyel sürücü robot sınıfının durum tahmini yönteminde gereklidir. Bunlar, sistematik olmayan odometri hatalarının büyüme faktörlerini belirten float sayılarıdır( 1 / [m]). Daha fazla bilgi için help robotdd / predict yazın.
 
-11.Ana sensörü tanımlamak için  params.mastersensid parametresi gereklidir. Kurulum dosyasında tanımlanan sensörlerden birinin tanımlayıcı değeri i edinmelidir.
+11.Ana sensörü tanımlamak için  params.mastersensid parametresi gereklidir.
 [source, Matlab]
 -----
 params.mastersensid = 2;
@@ -273,4 +273,27 @@ drawrobot([5 1 1.0],'k',5);
 drawroundedrect([3.0 1 2.4],0.2,1.7,0.0,0,'r');
 drawroundedrect([4.0 0 2.3],0.4,0.4,0.2,1,[.8 .8 .8]);
 -----
-12.
+12.drawtransform(xs,xe,shape,label,color) xs (3 × 1) konumundan xe'ye (3 × 1) kadar eğri bir çizgi çizer. Shape eğrinin şeklini kontrol eder.
+[source, Matlab]
+-----
+plot(0,0,'k+'); plot(0.2, 1.5,'k+');
+drawtransform([0 0],[0.2 1.5],'/','x1',[.9 .8 .0]);
+
+plot(1,0,'k+'); plot(1.2, 1.5,'k+');
+drawtransform([1 0],[1.2 1.5],'\','x2',[.7 .6 .0]);
+-----
+13.Xji = icompound (xij), xij ilişkisine bakıldığında ters çevrilmiş 2D dönüşümünü xji'yi döndürür. Tüm x'ler 3 x 1 vektördür, tüm açılar [0,2π] arallığında.
+
+14.J = j1comp (xi, xj) birinci işlenen xi'ye göre türetilen xi ve xj'nin 2D bileşiminin Jacob matrisini döndürür. Tüm x'ler 3 x 1 vektör, J, 3 x 3 matrisidir.Jacobian, xik = xij ⊕ xjk bileşiminin xij ve xjk giriş dönüşümleri belirsiz olduğunda birinci derece hata yayılımı gerçekleştirmek için kullanılır. 
+
+15.J = j2comp (xi, xj), ikinci işlenen xj'e göre türetilen xi ve xj'nin 2D bileşiminin Jacob matrisini döndürür. Tüm x'ler 3 x 1 vektör, J, 3 x 3 matrisidir.
+
+16.J = jinv (xij), xij'nin xji dönüşümü Jacob matrisini döndürür. Tüm xler 3 x 1 vektöre sahiptir.
+
+17.d = mahalanobis(v,S) mahalonobis mesafesini hesaplar. v ve yenilik kovaryans matrisi S olarak verilen chi square dağıtılan Mahalanobis mesafesini hesaplar .Mahalanobis mesafesi, ikinci dereceden bir formdur ve bir matris S'nin pozitif kesinliğini test etmeyi sağlar.
+
+18.[Xw, Cw] = meanwm (x, C), çok değişkenli ağırlıklı ortalamayı hesaplar. X, m × n boyutundaki bir matristir ve her sütun, m × 1 boyutunda Gauss dağıtılan rasgele bir vektör olarak yorumlanır. C, bir m × m × n matrisidir, burada her m × m matrisi, kendi münasebetiyle ilişkili kovaryans tahmini olarak yorumlanan sıra vektörüdür. İşlev, sırasıyla m × 1 ve m × m boyutlarının ağırlıklı ortalama vektörü xw'yi ve ağırlıklı kovaryans matrisi Cw'yi döndürür.
+19.ar = setangletorange (a, min) a açısını [min .. min + 2π ] aralığına yerleştirir. 
+
+=== 2) M-dosyalarını içe aktarma(import folder)
+1.
