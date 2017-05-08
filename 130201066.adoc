@@ -162,4 +162,41 @@ params.sensor2.stdrho = 0.02; [m]
 -----
 params.mastersensid = 2;
 -----
+
 === 5)Algoritma ve Kullanıcı Parametrelerini Belirleme
+
+1.Sensörlerin ve robotların tanımı yanında, özellik çıkarma, slam, lokalizasyon veya kullanıcı tarafından belirlenen algoritmalar için diğer parametreler de params yapısına eklenebilir. [M] cinsinden bölümleme için bir eşik mesafesi gerektiren bir işaret uzaklığı algoritması ile başlayalım, bir işaret ışığı okumasının maksimum bir menzil değeri kabul edilecek ve [m] cinsinden dmax = RS - d(ignore) olarak ifade edilecek ve minimum okuma sayısı sağlanacaktır. Bir küme veya segmentin geçerli bir işaretçi ölçümü olması için.
+[source, Matlab]
+-----
+params.beaconthreshdist = 0.15; % in [m]
+params.ignoredist = 0.1; % in [m]
+params.minnpoints = 2;
+-----
+2.Son parametre olan Cb ise, ham sinyali okumalarının sabit bir x, y konumu belirsizliğini belirten 2 × 2 matrisidir.
+[source, Matlab]
+-----
+params.Cb = 0.01*eye(2);
+-----
+.Not=Yukarıdaki tanımlamalar Sjursflatbeaconsetup.m içindeki algoritma parametre tanımlamalarıdır.
+
+3.Atriyum deneyi gibi çizgi çıkarma kullanıldığında, kurulum dosyası aşağıdaki parametrelerin tanımlarını içermelidir.
+[source, Matlab]
+-----
+params.windowsize = 11; % in number of points
+params.threshfidel = 0.2;
+params.fusealpha = 0.9999; % between 0 and 1
+params.minlength = 0.75; % in [m]
+params.compensa = 1*pi/180; % in [rad]
+params.compensr = 0.01; % in [m]
+params.cyclic = 0; % 0: non-cyclic or 1: cyclic
+-----
+4.Params.alpha alanı, eşleştirme için önem seviyesini belirterek, 0 ile 1 arasında bir float bir değer alan sayısıdır.
+[source, Matlab]
+-----
+params.alpha = 0.999;
+-----
+5.Params.axisvec alanı, drawrawdata ve slam'ın çizileceği şekil penceresinin eksen sınırlarını belirten 1 x 4 vektördür.
+[source, Matlab]
+-----
+params.axisvec = [-14 24 -19 13];
+-----
