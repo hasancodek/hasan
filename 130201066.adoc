@@ -43,6 +43,7 @@ draw(G,1,1,0,'b');
 -----
  axis([-3 3 -3 3]);//Haritanın pencere eksenlerini ± 3 m ile sınırlamayı seçeriz
 -----
+
 === 2)Dahili Örnekleri Kullanma 
 
 .Not = Mevcut sürüm, önceden hazırlanmış beş pre-cooked deneyiyle birlikte geliyor. Bunlar: atrium, bakery1, bakery3, sjursflat with beacons, ve sjursflat with lines. 
@@ -104,6 +105,7 @@ params.robot.rr = 0.25; % right wheel radius in [m]
 params.robot.x = zeros(3,1);
 params.robot.C = 0.0001*eye(3);
 -----
+
 === 4)Sensör Tanımlama
 
 1.Params.sensori.name alanı, sensör adını ve tam sayı i ile sensör numarasını tanımlayan ve tek tırnak işareti içinde belirtilen komuttur.
