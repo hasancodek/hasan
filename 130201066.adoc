@@ -337,4 +337,13 @@ segmentstr('1:2:3:end:4:',':')
 segmentstr(' p.j. harvey and john parish ',' ')
 -----
 === 3)Beacon Extraction m-files(featureextr/beaconextr folder)
+1.L = ekspesbacons (beacondata, params, display), beacondata'daki ham ölçümlerden gelen işaretleri çıkarır ve bunları yerel harita L'ye döndürür.Fiziksel uzantıya sahip bir sinyal lambası (örn., Tekrar yansıtan bir bant) tipik olarak, lazer ışını tarafından birden fazla kez vurulur ve bu sinyalin birkaç ham ölçümleri sonuçlanır. Bu çıkarma yöntemi, verileri aynı işaret bölüğüne ait küme kümelerine ayırır ve birkaç nokta olması durumunda, işaret ışığı konumunun en az karekök kestirimini bulur.
+
+[source, Matlab]
+-----
+params.beaconthreshdist :% Bölme için atlama mesafesi [m]
+params.minnpoints : % Kabul edilebilmesi için bir kümedeki en az sayıda noktada eşik
+params.cb : % Ham işaretin ölçümü sabit 2 x 2 varsayılan kovaryans matrisi
+-----
+=== 4)Line Extraction m-files(featureextr/lineextr folder)
 1.
