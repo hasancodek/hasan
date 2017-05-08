@@ -146,7 +146,7 @@ params.sensor3.extractionfnc = 'extractbeacons';
 -----
 params.sensor3.xs = [0.2945; 0; 0.0];
 -----
-9. params.sensori.rs , params.sensori.anglereso ,params.sensori.stdrho, aralık sensörünün maksimum algılama yarıçapını [m] cinsinden, radardaki açısal çözünürlüğü ve radyal olarak sabit bir standart sapmayı belirten float sayılarıdır . Bu parametreler, drawrawdata veya extractlines, çizgi çıkarma yöntemi bu araç kutusu sürümünde bulunan gibi çeşitli yerlerde gereklidir. 
+9.params.sensori.rs , params.sensori.anglereso ,params.sensori.stdrho, aralık sensörünün maksimum algılama yarıçapını [m] cinsinden, radardaki açısal çözünürlüğü ve radyal olarak sabit bir standart sapmayı belirten float sayılarıdır . Bu parametreler, drawrawdata veya extractlines, çizgi çıkarma yöntemi bu araç kutusu sürümünde bulunan gibi çeşitli yerlerde gereklidir. 
 [source, Matlab]
 -----
 params.sensor2.rs = 8.0; [m]
