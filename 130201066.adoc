@@ -204,5 +204,5 @@ params.axisvec = [-14 24 -19 13];
 == Chapter 2
 
 .Genel m-dosyaları (lib klasörü)
-===1)Genel m-dosyaları (lib klasörü)
+=== 1)Genel m-dosyaları (lib klasörü)
 1.
