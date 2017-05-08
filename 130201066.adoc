@@ -214,3 +214,6 @@ x = chi2inv(0.95,10)
 x =
   18.3070
 -----
+
+2.Xik = compound(xij, xjk), head-to-tail şeklinde düzenlenmiş iki  boyutlu dönüşüm xij ve xjk'nin bileşik ilişkisini döndürür.
+Örnek : W'nin referans çerçevesinde R nesnesini ifade eden xW R dönüşümü ve R çerçevesinde S nesnesini temsil eden xRS'i dönüştürmek için, xW S bileşimi, S'yi W çerçevesinde temsil eden ilişki : xW S = xW R ⊕ xRS
