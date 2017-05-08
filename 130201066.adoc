@@ -204,4 +204,13 @@ params.axisvec = [-14 24 -19 13];
 == Chapter 2
 
 === 1)Genel m-dosyaları (lib klasörü)
-1.
+
+1.x = chi2invtable(p,v), p değerinde v serbestlik derecesine sahip olan χ2 kümülatif dağılım fonksiyonunun (cdf) tersini döndürür.  V serbestlik dereceli χ 2 cdf, v / 2 ve 2 parametreleriyle Γ cdf'dir. Chi2invtable (veya chi2inv) tipik bir kullanım senaryosu: bir Kalman filtre lokalizasyonu veya slam devresi eşleme aşamasındadır. α olasılığı ve n boyutunun özellikleri göz önüne alındığında, ikili tablo, inovasyon ile eşleşen bir adayın νij ve inovasyon kovaryansı Sij'nin kabul edilmesi için sahip olabileceği maksimal Mahalanobis mesafesini (or gate distance) verir. Diğer bir deyişle, eşlik νTij Sij νij < χ2n,α gibi kabul edilir.
+
+[source, Matlab]
+-----
+//10 derecelik serbestlik derecesine sahip  chi-square dağılımından örneklerin %95'ini aşan bir değer bulun.
+x = chi2inv(0.95,10)
+x =
+  18.3070
+-----
