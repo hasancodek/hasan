@@ -346,4 +346,75 @@ params.minnpoints : % Kabul edilebilmesi için bir kümedeki en az sayıda nokta
 params.cb : % Ham işaretin ölçümü sabit 2 x 2 varsayılan kovaryans matrisi
 -----
 === 4)Line Extraction m-files(featureextr/lineextr folder)
+1.c = calccompactness (x), Göreceli model geçerlilik ölçütünü hesaplar. α, r-model alanındaki ortak ağırlıklı ortalamalardan n α, r-çizgilerinin Mahalanobis mesafelerinin toplamını döndürür. X, 5 × n boyutunda olup, satırlar [alfa, r, saa, srr, sar] şeklindedir. Α koordinatı düzgün bir şekilde açılır.
+2.pe = calcendpoint(p,x) Segment uç noktalarını hesaplar. 
+3.L = extractlines(scndata,params,display)  kutupsal koordinatlarda verilen belirsiz aralık verisinden çizgi parçalarını çıkarır. Hessian α, r-modelinde temsil edilen çizgiler ve bunların ilişkili kovaryans matrisleri ifade edilir. Algoritma, sabit boyuttaki bir pencerenin (sıralı) aralık okumalarının kümesini süpürdüğü bir kayan pencere tekniğini kullanır. Her adımda model (burada: çizgi) pencere içindeki noktalara yerleştirilir ve bir model sağlamlık ölçüsü hesaplanır. Algoritma parametreleri ayrıntılı olarak:
+[source, Matlab]
+-----
+params.windowsiz % Kayan pencerenin boyutu noktada sayı (tek sayı, ≥ 3)
+params.threshfidel % Model doğruluğunda eşik
+params.fusealpha % Segment füzyonu için önem düzeyi,
+params.minlength % [m] 
+params.cyclic 
+params.compensa  %[rad]
+params.compensr % [m]
+-----
+4.Indices = findregions (x, id, op, cyc) dizideki aramalar x id'in ilişkili bulunduğu tüm bölgeler(op). Op, aşağıdaki ilişkisel operatörler kümesindeki bir dizedir:
+'==': eşit  
+'~ =': eşit değil
+'<': küçüktür 
+'>': büyüktür 
+'<=': küçüktür veya eşit
+'> =': büyüktür veya eşittir
+Eğer cyc 1 ise, x bir döngüsel dizi olarak yorumlanır. Eğer id x'de görünmüyorsa, -1 döndürülür, x matris ise -2, op için geçerli değilse  0 veya 1 değilse -3 olur.
+Fonksiyonlar, üç elemanlı, bölge tanımlayıcı, başlangıç ve bitiş endeksi, her bölge yeni bir satırda r × 3 matris indisleri döndürür. 
+[source, Matlab]
+-----
+ findregions([-2 1 0 2 -9 -6 1 2 -5 -4 -3],0,'<',0)
+ans =
+
+     1     1     1
+     2     5     6
+     3     9    11
+
+findregions([5 0 1 5 5 0 5 5],5,'==',1)
+ans =
+
+     1     7     1
+     2     4     5
+-----
+5.[x,C] = fitlinepolar(p)  weighted least squares anlamında bir çizgiye uyuyor ve kutupsal koordinatlarda p noktalarından noktalara kadar olan dikey hataları en aza indiriyor. Rho'daki belirsizlikler, parametre kovaryans matrisi C'yi veren uygun ifadeler vasıtasıyla varsayılır ve yayılır. P, ilk sütunda teta, ikinci sütunda rho ve üçüncü sütunda sigma rho olan n ≥ 3 olan bir n × 3 matrisidir.
+[source, Matlab]
+-----
+P = [1.9 1 0.1; 1.6 1.1 0.1; 1.3 1.1 0.1; 1 1.4 0.1; 0.7 1.5 0.1];
+polar(P(:,1),P(:,2),'b.')
+[x,C] = fitlinepolar(P);
+l = arlinefeature(1,x,C);
+draw(l,0,'k');
+
+-----
+6.sneighbour(rawsegs,i,j,overlap,cyc) Çizgi bölümlerinin bitişik olup olmadığını kontrol eder.  overlap = 0 ve segmentler i ve j bitişikse veya overlap = 1 ve segmentler i ve j birbirine bitişik olduğunda örtüşürse, 1 döndürür.
+7.d = mahalanobisar(l1,l2) 2 α, r-lines Mahalanobis mesafesini döndürür. L1 ve l2, elemanları [alpha r saa srr sar] olan 1 x 5 dizilerdir.
+[source, Matlab]
+-----
+d = mahalanobisar([1 1 1 1 1],[2 2 2 2 2])
+
+d =
+
+   NaN
+   
+d = mahalanobisar([1 1 1 1 1],[2 2 2 4 2])
+
+d =
+
+    0.3333
+
+-----
+8.y = mod2(x,len) Bölünmeden sonraki Matlab index-compatible modülü döndürür. x modülü len döndürür, böylece y her zaman Matlab dizilerinin geçerli dizin aralığında olur.
+[source, Matlab]
+-----
+len = 4, x: ... -2 -1 0 1 2 3 4 5 6 ...
+y: ... 2 3 4 1 2 3 4 1 2 ...
+-----
+=== 5)SLAM m-files (slam folder)
 1.
