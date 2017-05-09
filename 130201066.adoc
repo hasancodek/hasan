@@ -644,7 +644,9 @@ r1 = robotdd('Donald Duck',[.5;1; pi/6 ],0.001*eye(3),0.2,0.2,0.5,4,now);
 draw(r1,1,'k');
 -----
 4.v = get (r, 'PropertyName'), diferansiyel sürücü robot nesnesi r için belirtilen özelliğin v değerini döndürür.
+
 5.[r,Fxr,path] = predict(r,enc,params) bir başlangıç pozu, bir başlangıç pozu kovaryans matrisi ve enkoderdeki açısal tekerlek yer değiştirmeleri göz önüne alındığında, son poz ve son poz kovaryans matrisini hesaplar. Params robot modeli ve hata büyüme katsayılarını içerir.
+
 6.r = robotdd (name, x, c, rl, rr, b, biçim tipi, t) değerleri içeren yeni bir diferansiyel sürücü robot nesnesi oluşturur.
 C : 3 × 3 state covariance matrix
 t : Ayrık zaman indeksi veya zaman damgası
