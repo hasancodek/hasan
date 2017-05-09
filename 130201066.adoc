@@ -394,6 +394,7 @@ draw(l,0,'k');
 
 -----
 6.sneighbour(rawsegs,i,j,overlap,cyc) Çizgi bölümlerinin bitişik olup olmadığını kontrol eder.  overlap = 0 ve segmentler i ve j bitişikse veya overlap = 1 ve segmentler i ve j birbirine bitişik olduğunda örtüşürse, 1 döndürür.
+
 7.d = mahalanobisar(l1,l2) 2 α, r-lines Mahalanobis mesafesini döndürür. L1 ve l2, elemanları [alpha r saa srr sar] olan 1 x 5 dizilerdir.
 [source, Matlab]
 -----
