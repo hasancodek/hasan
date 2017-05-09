@@ -418,4 +418,125 @@ len = 4, x: ... -2 -1 0 1 2 3 4 5 6 ...
 y: ... 2 3 4 1 2 3 4 1 2 ...
 -----
 === 5)SLAM m-files (slam folder)
+1.G = estimatemap (G, nu, R, H) extended Kalman filter (EKF) uygulayarak G haritasını günceller. Yığının çarpılmış ölçüsü Jacobian H, boyut n × p'dir, burada p ölçümlerin sayısıdır (gözlemlenen özellik sayısı ile parametrelerinin sayısının çarpımıdır) ve n harita durumu vektörünün boyutu. İstiflenmiş p × 1 yenilik vektörü nu ve yığılmış p × p gözlem kovaryans matrisi R.
+
+2.M = initmap (mode, name, params), bir slam veya lokalizasyon deneyi için M haritasını başlatır. Mode = 0 ile, bir slam denemesi için harita hazırlanır: name adı olan bir M haritası oluşturulur, bir robot oluşturulur, M'ye eklenir ve ilk poz params.xrinit, params.crinit olarak ayarlanır. Mode = 1 ile harita bir yerelleştirme denemesi için hazırlanır: name adı olan bir harita dosyası açılır, okunur ve robot yukarıdaki gibi başlangıçtaki poz olarak ayarlanır.
+
+3.G = integratenewobs(G,L,associations) Haritayı yeni özelliklerle büyütür. Yerel harita L'den yeni ve eşsiz gözlemleri genel harita G'ye entegre eder ve arttırılmış haritayı döndürür. 
+[source, Matlab]
+-----
+associations(i).il  % L'deki yerel eşleştirme özelliğinin indeksi
+associations(i).ig  % G'de küresel eşleştirme özelliğinin indeksi
+-----
+4.[Nu, R, H, dernekler] = matchnnsf (Gpred, Hpred, L, params) yerel haritadaki L gözlemlenen özelliklerle tahmin edilen global haritadaki en yakın komşu stratejiyle Gpred'deki tahmin edilen özelliklerle eşleşirir. Eşleştirme için önem düzeyi params α ile verilir.Fonksiyon, yığılmış p × 1 yenilik vektörü nu'sunu döndürür, burada p eşleşmiş gözlemlerin sayısıdır (eşleşen özelliklerin sayısına parametrelerinin sayısını çarpar), yığılmış p × p gözlem kovaryans matrisi R Sıfır olmayan girdileri ve yığılmış p × n ölçüm Jacobian matrisi H robotun konumundaki her sırada sıfır olmayan girdiler ve karşılık gelen özelliğin konumu (n, harita durum vektörünün büyüklüğüdür ).
+5.[Gpred, Hpred] = predictmeasurements(G), gözlem fonksiyonunu, mevcut robot pozu verildiğinde onları yerel koordinat karesinden global koordinat karesinden dönüştürerek haritadaki tüm özelliklere uygular. Gpred haritasındaki öngörülen ölçümleri ve Hpred yapısını tek tek Jacobians ölçüleriyle döndürür:
+[source, Matlab]
+-----
+Hpred(i).Hr : 
+Hpred(i).Hm :
+-----
+6.G = robotdisplacement(G,xr,Cr,Fxr) tahmin edilen 3 x 1 matrisinde robot pozu xr, öngörülen 3 x 3 kovaryans matrisi Cr ve tahmini etrafında doğrusallaştırılan 3x3 işlem modeli Fxr verildiğinde G genel haritasını günceller.
+
+7.M = slam(setupfilename,startstep,nsteps,displaymode)Eşzamanlı lokalizasyon ve haritalama yapar. Setupfilename kurulum dosyasında belirtilen sensör verisinden stokastik bir M haritası oluşturur. Kurulum dosyası, tüm sensör veri dosyalarının adlarını, robot modelini, sensör modellerini ve deneyin deneysel ve algoritmik parametrelerini içerir.
+
+=== 6)Map entity methods (@entity folder)
+Not : Harita varlık sınıfı, bir haritadaki robotların ve özelliklerin üst sınıfıdır. Temel sınıf olduğundan, yapıcı metot öğesi, get ve set yöntemi, get, set ve görüntüleme yöntemi olmak üzere yalnızca dört yöntem vardır.
+
+1.display (e) harita varlık nesnesi e'yi gösterir.
+2.e = entity Varsayılan değerlerle yeni bir harita varlık nesnesi oluşturur.
+[source, Matlab]
+-----
+e = entity('robot',1);
+e = entity('line segment',36);
+-----
+3.v = get(e,'PropertyName')  Harita varlık nesnesi e için belirtilen özelliğin v değerini döndürür.
+[source, Matlab]
+-----
+identifier = get(e,'id');
+-----
+4.e = set(e,'PropertyName',PropertyValue) Harita varlık nesnesi için belirtilen özellik değerini ayarlar.
+[source, Matlab]
+-----
+e = set(e,'id',201);
+-----
+=== 7) Point feature methods (@pointfeature folder)
+1.Definition: Bir nokta özelliğinin modeli basitçe p = (x, y). Burada x ve y, bazı referans çerçevedeki özellik konumunun Kartezyen koordinatlarıdır. Buna göre, 2 x 2 ilişkili kovaryans matrisidir.
+2.nu = calcinnovation(p1,p2) İki nokta arasındaki özellikleri hesaplar. p1 ve p2 nokta özelliklerinin durum vektörlerinin farkını döndürür. 
+3.display(p) p noktasının özelliğini görüntüler. 
+[source, Matlab]
+-----
+point feature id = 201
+x = -1 C = 0.001 0
+3 0 0.001
+-----
+4.draw (p, id, color) nokta özelliğini p color rengiyle geçerli şekle çizer. Özellik kimlik tanımlayıcılarını, 1 veya 0 bayrak kimlikleri ile etkinleştirir veya devre dışı bırakır.
+[source, Matlab]
+-----
+p2 = pointfeature(102,[-2; 0],[0.02 0.01; 0.01 0.008]);
+drawprobellipse(get(p2,'x'),get(p2,'c'),0.99,[.3 .3 .3]);
+h2 = draw(p2,1,[1 0.5 0]);
+-----
+5.v = get(p,'PropertyName') Nokta özellik nesnesi p için belirtilen özelliğin v değerini döndürür.
+[source, Matlab]
+-----
+state = get(p,'x');
+-----
+6.[Pw, Gr] = integre (p, xr, Cr) belirsiz 3 x 1 robot pozu xr ve 3 x 3 poz kovaryans matrisi Cr verilen robot çerçevesinde temsil edilen nokta özellik p'yi world frame'e dönüştürür. Entegrasyon fonksiyonunun Jacobian'ı Gr'dir.
+7.p = pointfeature Varsayılan değerlerle yeni bir x, y noktası öznitelik nesnesi oluşturur.
+[source, Matlab]
+-----
+p = pointfeature(201,[-1;3],0.001*eye(2));
+-----
+8.[Pr, Hr, Hm] = tahmin (p, xr, Cr, Crp) belirsiz robot pozu xr, Cr verilen robot çerçeve içine world frame de temsil edilen nokta özelliğini dönüştürür ve robot ile P, Crp. Xr, 3 x 1 vektör, Cr 3 x 3 kovaryans matrisi ve Crp a 3 x 2 çapraz korelasyon matrisidir.
+9.P = set (p, 'PropertyName', PropertyValue), nokta özellik nesnesi p için belirtilen özellik değerini ayarlar.
+[source, Matlab]
+-----
+p = set(p,'x',[-1; 2],'C',zeros(2));
+-----
+=== 8)(α,r)-line methods (@arlinefeature folder)
+
+1.Definition : Sonsuz (α, r)-çizgileri için model x sin(α) + y cos(α) − r = 0. Burada α dikeyin açısı ve r uzunluğudur. Koordinatları (x, y) yukarıdaki denklemi karşılarsa, bir nokta çizgidir. Nokta kutupsal koordinatlarda (ρ, θ) verilirse, model: ρ cos(θ − α) − r = 0
+2.l = arlinefeature Varsayılan değerlerle yeni bir α, r-line özelliğine sahip nesne oluşturur.
+l = arlinefeature(l) α, r-line özelliğini kopyalar ve döndürür.
+l = arlinefeature(id,x,C) Değerleri içeren yeni bir α, r-line özelliğini nesne oluşturur:
+Id: tanımlayıcı
+ x: 2 × 1 özellik parametresi vektörü
+ C: 2 x 2 parametre kovaryans matrisi
+[source, Matlab]
+-----
+l = arlinefeature(10,[-pi/3;2],0.001*eye(2));
+-----
+3.nu = calcinnovation(l1,l2), α, rline özellikleri l1 ve l2'nin durum vektörlerinin farkını döndürür.
+4.display (l), l'nin α, r-line özelliğini görüntüler.
+[source, Matlab]
+-----
+alpha,r line feature id = 10
+alpha = -1.0472 C = 0.001 0
+r = 2 0 0.001
+-----
+5.draw (p, ids, color), α, r-line özelliğini color rengiyle geçerli şekle çizer. Özellik kimlik tanımlayıcılarını, 1 veya 0 bayrak kimlikleri ile etkinleştirir veya devre dışı bırakır.
+[source, Matlab]
+-----
+l1 = arlinefeature(11,[-pi/3;1],0.001*eye(2));
+l2 = arlinefeature(12,[pi/6;1.1],[0.02 0.001; 0.001 0.008]);
+l3 = arlinefeature(13,[-pi/3;-0.8],[0.001 0; 0 0.033]);
+draw(l1,1,'r');
+draw(l2,1,[1 0.5 0]);
+h3 = draw(l3,1,[1 0.7 0]);
+set(h3,'LineWidth',2);
+axis([-2 2 -2 2]);
+-----
+6.v = get (l, 'PropertyName'), α, r-satırı özellik nesnesi l için belirtilen özelliğin v değerini döndürür.
+[source, Matlab]
+-----
+state = get(l,'x');
+-----
+7.[Lw, Gr] = belirsiz 3 × 1 robot pozu xr ve 3 × 3 poz kovaryans matrisi Cr (1, 2) 'nin verildiği robot çerçeve içinde temsil edilen α, r-çizgi özelliklerini l bütünleştirir (l, xr, Cr) .
+8.[lr,Hr,Hm] = predict(L,xr,Cr,Crl)  belirsiz robot pozu xr, Cr verilen world framede temsil edilen α, r-çizgi özelliklerini l robot çerçevesine dönüştürür ve çapraz korelasyon Robot ve l arasında, Crl. Xr, 3 x 1 vektör, Cr 3 x 3 kovaryans matrisi ve Crl a 3 x 2 çapraz korelasyon matrisidir.
+9.l = set(l,'PropertyName',PropertyValue)  α, r-satırı özellik nesnesi l için belirtilen özellik değerini ayarlar.
+[source, Matlab]
+-----
+l = set(l,'x',[pi/6; 2],'C',zeros(2));
+-----
+=== 9)Map methods (@map folder)
 1.
