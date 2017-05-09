@@ -539,4 +539,117 @@ state = get(l,'x');
 l = set(l,'x',[pi/6; 2],'C',zeros(2));
 -----
 === 9)Map methods (@map folder)
-1.
+
+1.m = addentity(m,e) e eşlemesini m eşlemesine ekler ve e kainatına ait yeni sıra ve sütundaki sıfırları doldurarak eşleme matrisini genişletir.
+2.display(m) m harita nesnesini görüntüler.
+Örnek : Bir diferansiyel tahrik robotu ve bir nokta özelliği içeren bir m haritası verildi.
+[source, Matlab]
+-----
+Map "global map":
+time = 7.321255e+05
+Robot:
+differential drive robot id = 0
+name = Piggy
+time = 7.321255e+05
+form type = 4
+x = 1 C = 1 0 0
+2 0 1 0
+3.1416 0 0 1
+rl = 0.2
+rr = 0.2
+b = 0.5
+Features:
+point feature id = 201
+x = -1 C = 0.001 0
+3 0 0.001
+
+-----
+3.draw(m,ids,ellis,newfig,color) m haritasını çizer. Ids = 0/1 ve belirsizlik elipsleri ile ellis = 0/1 olan özellik tanımlayıcılarını görüntüleme özelliğini etkinleştirir veya devre dışı bırakır.
+4.drawcorr(m,colormode) Harita korelasyon katsayılarını göster.  Renk açısı 1 ise, korelasyonlar gri değer olarak çizilir; burada siyah, tam korelasyon ve beyaz sıfır korelasyon anlamına gelir. Colormode 0 ise, varsayılan renk eşleme kullanılır.
+[source, Matlab]
+-----
+drawcorr(G,0);
+drawcorr(G,1);
+-----
+5.v = get (m, 'PropertyName'), harita nesnesi m için belirtilen özelliğin v değerini döndürür.
+[source, Matlab]
+-----
+x = get(G,'x');
+C = get(G,'c');
+-----
+6.r = getrobot (m), harita m'deki robot nesnesini döndürür. M'de robot yoksa, r boş değer alır.
+[source, Matlab]
+-----
+r = getrobot(G);
+-----
+7.[x,C] = getstate(m) yığılmış harita durum vektörü x ve harita m'nin yığılmış durum kovaryans matrisi C'yi döndürür.
+8.m = map Varsayılan değerlerle yeni bir harita nesnesi oluşturur.
+[source, Matlab]
+-----
+G = map('global map',now)
+-----
+9.m = set (m, 'PropertyName', PropertyValue), harita nesnesi m için belirtilen özellik değerini ayarlar.
+[source, Matlab]
+-----
+m = set(m,'name','predicted map')
+m = set(m,'x',x)
+-----
+10.m = setrobot (m, r), m zaten bir robot içeriyorsa, robot nesnesini m eşlemesine ayarlar. Aksi takdirde m değişmez. Bir haritaya bir robot eklemek için addentity kullanın.
+11.m = setstate(m,x,C)  sırasıyla harita durumu vektörü ve durum kovaryans matrisini x ve C ile üzerine yazar. X'in boyutu n × 1, C'nin boyutu n × n'dir; burada n, m'lik sayıdaki parametre sayısına artı robottan üç özellik sayısına eşittir.
+
+=== 10) Robot methods (@robot folder)
+1.display (r) r robot nesnesini görüntüler.
+[source, Matlab]
+-----
+differential drive robot id = 0
+name = Piggy
+time = 7.321255e+05
+form type = 4
+-----
+2.V = get (r, 'PropertyName'), r robot nesnesi için belirtilen özelliğin v değerini döndürür.
+[source, Matlab]
+-----
+state = get(r,'name');
+-----
+3.r = robot Varsayılan değerle yeni bir robot nesnesi oluşturur.
+[source, Matlab]
+-----
+r = robot('differential drive robot','Piggy',4,now);
+-----
+4.r = set(r,'PropertyName',PropertyValue) r robot nesnesi için belirtilen özellik değerini ayarlar.
+[source, Matlab]
+-----
+r = set(r,'Name','Pluto','FormType',4);
+-----
+=== 11)Differential drive robot methods (@robotdd folder)
+1.Definition : Diferansiyel bir sürücü robotu kinematik olarak üç parametreyle tanımlanır: tekerlek tabanı b, sol tekerleğin yarıçapı rl ve sağ tekerleğin yarıçapı rr.
+2.display (r) diferansiyel sürücü robot nesnesi r gösterir.
+[source, Matlab]
+-----
+differential drive robot id = 0
+name = Piggy
+time = 7.321255e+05
+form type = 4
+x = 1 C = 1 0 0
+2 0 1 0
+3.1416 0 0 1
+rl = 0.2
+rr = 0.2
+b = 0.5
+-----
+3.draw(r,ids,color) diferansiyel sürücü robotu çizer.
+[source, Matlab]
+-----
+r1 = robotdd('Donald Duck',[.5;1; pi/6 ],0.001*eye(3),0.2,0.2,0.5,4,now);
+draw(r1,1,'k');
+-----
+4.v = get (r, 'PropertyName'), diferansiyel sürücü robot nesnesi r için belirtilen özelliğin v değerini döndürür.
+5.[r,Fxr,path] = predict(r,enc,params) bir başlangıç pozu, bir başlangıç pozu kovaryans matrisi ve enkoderdeki açısal tekerlek yer değiştirmeleri göz önüne alındığında, son poz ve son poz kovaryans matrisini hesaplar. Params robot modeli ve hata büyüme katsayılarını içerir.
+6.r = robotdd (name, x, c, rl, rr, b, biçim tipi, t) değerleri içeren yeni bir diferansiyel sürücü robot nesnesi oluşturur.
+C : 3 × 3 state covariance matrix
+t : Ayrık zaman indeksi veya zaman damgası
+7.r = set (r, 'PropertyName', PropertyValue), diferansiyel sürücü robot nesnesi r için belirtilen özellik değerini ayarlar.
+[source, Matlab]
+-----
+r = set(r,'x',[0;1;pi/3],'C',zeros(3));
+-----
